@@ -6,15 +6,16 @@ pageSource: "https://raw.githubusercontent.com/julien-truffaut/Monocle/master/do
 ---
 # Background
 
-All the Optics defined in the `core` module obey a well defined set of `Laws` that make these Optics safe to use for all possible cases.
-Some Optics however cannot make such guarantees and as a result are said to be "unsafe" and placed in the `unsafe` module. 
+All the Optics provided in the `core` module obey a well defined set of `Laws` that make these Optics safe to use for all possible cases.  
 
-This is not to say that these Optics cannot be used - they actually come in handy on many occasions - but care must be taken in using them as we will proceed show in the next sections.
+In some cases of Optics however it is not always possible to make such guarantees, in which case the Optic is said to be "unsafe".  
+
+This is not to say that these special cases cannot be used - they actually come in handy on many occasions - but care must be taken in using them as we will demonstrate in the next sections.  
 
 
 # The `unsafe` module
 
-Unsafe Optics are defined in the `unsafe` module.  This module contains the following Optics:
+All Optics considered unsafe are provided in the `unsafe` module.  This module contains the following Optics:
 
 - UnsafeSelect
 - UnsafeHCompose
@@ -45,7 +46,11 @@ In this example the age is reset to `0` which invalidates the original predicate
 
 ## UnsafeHCompose
 
-`UnsafeHCompose` offers the ability to work with *any number* (0 to n) of `Lens` on `S`.  
+`UnsafeHCompose` offers the ability to use a `Traversal` Optic with *any* number of `Lens` (0 to n).  
 
-It is a special case of `Traversal` that is considered unsafe because the (0 to n) of `Lens` requirement breaks the xxxx `Law` of `Traversal`.
+This is a case of unsafe Optic because it is not possible to know if two (or more) `Lens` will modify the same value, hence breaking the `composeModify` law of `TraversalLaws`.
+
+
+
+
 
